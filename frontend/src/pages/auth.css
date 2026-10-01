@@ -1,0 +1,392 @@
+/* =========================
+   Login + Register pages
+   ========================= */
+
+:root {
+    --nk-orange: #ff7a1a;
+    --nk-orange-light: #ff9a2e;
+}
+
+
+/* ---------- Page + background ---------- */
+
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+/* Layer 1: the whole photo, blurred and dark (seen behind the card) */
+.auth-page::before {
+    content: "";
+    position: absolute;
+    inset: -30px;
+    background: url("../assets/auth-bg.png") center / cover no-repeat;
+    filter: blur(14px) brightness(0.45);
+}
+
+/* Layer 2: the sharp photo on the left side, with the burger in view.
+   The mask fades its right edge into the blurred layer. */
+.auth-page::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 60%;
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%),
+        url("../assets/auth-bg.png") 70% center / cover no-repeat;
+    -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 70%, transparent 100%);
+}
+
+.auth-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+
+/* ---------- Left side: brand ---------- */
+
+.auth-brand {
+    align-self: flex-start;
+    padding-top: 40px;
+    color: #fff;
+}
+
+.brand-logo-img {
+    display: block;
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+    /* soft shadow so the white "Kitchen" text stands out on light parts of the photo */
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+.brand-tagline {
+    margin: 4px 0 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    font-size: 0.85rem;
+    letter-spacing: 0.5em;
+}
+
+.brand-dot {
+    color: var(--nk-orange);
+}
+
+.brand-slogan {
+    margin: 60px 0 0 -10px;
+    font-family: "Caveat", cursive;
+    font-size: 1.9rem;
+    line-height: 1.1;
+    transform: rotate(-18deg);
+}
+
+
+/* ---------- Right side: glass card ---------- */
+
+.auth-card {
+    width: 100%;
+    max-width: 580px;
+    padding: 56px 56px 40px;
+    color: #fff;
+    background: rgba(18, 18, 18, 0.78);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 36px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.auth-title {
+    margin-bottom: 8px;
+    font-size: 2.6rem;
+    font-weight: 800;
+}
+
+.auth-title span {
+    color: var(--nk-orange);
+}
+
+.auth-subtitle {
+    margin-bottom: 32px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+}
+
+
+/* ---------- Inputs ---------- */
+
+.auth-field {
+    margin-bottom: 20px;
+}
+
+.auth-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.auth-input-wrap {
+    position: relative;
+}
+
+.auth-input-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #ddd;
+}
+
+.auth-input {
+    width: 100%;
+    height: 60px;
+    padding: 0 52px 0 56px;
+    font-size: 1rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.auth-input:focus {
+    border-color: var(--nk-orange);
+    box-shadow: 0 0 0 3px rgba(255, 122, 26, 0.2);
+}
+
+.auth-eye-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px;
+    font-size: 1.2rem;
+    color: #ddd;
+    background: none;
+    border: none;
+}
+
+
+/* ---------- Links + button ---------- */
+
+.auth-forgot {
+    margin: -8px 0 20px;
+    text-align: right;
+}
+
+.auth-link {
+    color: var(--nk-orange);
+    font-weight: 600;
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.auth-link:hover {
+    color: var(--nk-orange-light);
+}
+
+.auth-submit {
+    width: 100%;
+    height: 62px;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a13, var(--nk-orange-light));
+    border: none;
+    border-radius: 50px;
+    transition: filter 0.2s, transform 0.2s;
+}
+
+.auth-submit:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.auth-submit:disabled {
+    opacity: 0.7;
+    transform: none;
+}
+
+
+/* ---------- OR line + social buttons ---------- */
+
+.auth-divider {
+    margin: 28px 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.social-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.social-btn {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #222;
+    background: #fff;
+    border: none;
+    border-radius: 8px;
+}
+
+.social-btn:hover {
+    background: #f1f1f1;
+}
+
+.google-icon {
+    font-size: 1.15rem;
+    color: #4285f4;
+}
+
+.ms-logo {
+    display: grid;
+    grid-template-columns: 9px 9px;
+    gap: 2px;
+}
+
+.ms-logo span {
+    width: 9px;
+    height: 9px;
+}
+
+.ms-red { background: #f25022; }
+.ms-green { background: #7fba00; }
+.ms-blue { background: #00a4ef; }
+.ms-yellow { background: #ffb900; }
+
+.auth-switch {
+    margin: 28px 0 0;
+    text-align: center;
+    color: #ddd;
+}
+
+.auth-switch .auth-link {
+    margin-left: 8px;
+}
+
+
+/* ---------- Messages ---------- */
+
+.auth-alert {
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+
+.auth-alert-error {
+    color: #ffb3b3;
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid rgba(220, 53, 69, 0.5);
+}
+
+.auth-alert-success {
+    color: #b8f5c8;
+    background: rgba(25, 135, 84, 0.18);
+    border: 1px solid rgba(25, 135, 84, 0.55);
+}
+
+.auth-alert-info {
+    color: #ffd8b8;
+    background: rgba(255, 122, 26, 0.12);
+    border: 1px solid rgba(255, 122, 26, 0.45);
+}
+
+
+/* ---------- Tablet + mobile ---------- */
+
+@media (max-width: 991px) {
+    /* On small screens the photo fills the whole page, a bit darker */
+    .auth-page::after {
+        width: 100%;
+        background:
+            linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)),
+            url("../assets/auth-bg.png") 60% center / cover no-repeat;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .auth-container {
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        padding: 32px 16px;
+    }
+
+    .auth-brand {
+        align-self: center;
+        padding-top: 0;
+        text-align: center;
+    }
+
+    .brand-logo-img {
+        width: 260px;
+        margin: 0 auto;
+    }
+
+    .brand-tagline {
+        font-size: 0.7rem;
+        letter-spacing: 0.35em;
+    }
+
+    .brand-slogan {
+        display: none;
+    }
+
+    .auth-card {
+        padding: 36px 24px 28px;
+        border-radius: 24px;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-buttons {
+        grid-template-columns: 1fr;
+    }
+}
