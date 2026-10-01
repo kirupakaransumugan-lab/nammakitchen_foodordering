@@ -1,0 +1,171 @@
+/* =========================
+   Category card + Food card
+   ========================= */
+
+/* Grey box shown until the real image is added */
+.img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #e0c9b5;
+    background: #fbf1e7;
+}
+
+
+/* ---------- Category card ---------- */
+
+.category-card {
+    width: 100%;
+    padding: 14px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(120, 72, 30, 0.08);
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+}
+
+.category-card.active,
+.category-card:hover {
+    background: #fff6ee;
+    border-color: #ff9a5c;
+}
+
+.category-card-img {
+    width: 100%;
+    height: 110px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.category-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.category-card-name {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #1d1d1d;
+}
+
+
+/* ---------- Food card ---------- */
+
+.food-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(120, 72, 30, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.food-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(120, 72, 30, 0.16);
+}
+
+.food-card-img {
+    position: relative;
+    height: 160px;
+}
+
+.food-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.food-like-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 50%;
+}
+
+.food-like-btn .bi-heart-fill {
+    color: #ff4d4d;
+}
+
+.food-card-body {
+    flex: 1;
+    padding: 14px 16px 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.food-card-info {
+    min-width: 0;
+}
+
+.food-card-name {
+    margin-bottom: 4px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1d1d1d;
+}
+
+/* Max 2 lines, then "..." */
+.food-card-desc {
+    margin-bottom: 8px;
+    font-size: 0.82rem;
+    color: #6c6c6c;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.food-card-price {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ff5a1f;
+}
+
+.food-add-btn {
+    flex-shrink: 0;
+    padding: 9px 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a13, #ff9a2e);
+    border: none;
+    border-radius: 50px;
+    transition: filter 0.2s;
+}
+
+.food-add-btn:hover {
+    filter: brightness(1.08);
+}
+
+.food-add-btn.added {
+    background: #2e9d5b;
+}

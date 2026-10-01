@@ -1,0 +1,139 @@
+.nk-navbar {
+    padding: 10px 0;
+    background: rgba(10, 10, 10, 0.94);
+    backdrop-filter: blur(8px);
+}
+
+.nk-nav-logo {
+    height: 64px;
+    width: auto;
+}
+
+
+/* ---------- Links ---------- */
+
+.nk-navbar .nav-link {
+    position: relative;
+    margin: 0 14px;
+    padding: 8px 0;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.nk-navbar .nav-link:hover {
+    color: #fff;
+}
+
+.nk-navbar .nav-link.active {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Orange line under the active link */
+.nk-navbar .nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    bottom: -6px;
+    height: 3px;
+    border-radius: 3px;
+    background: #ff7a1a;
+}
+
+
+/* ---------- Right side ---------- */
+
+.nk-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nk-cart-btn {
+    position: relative;
+    font-size: 1.7rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nk-cart-btn:hover {
+    color: #ff9a2e;
+}
+
+.nk-cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -12px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    background: #ff5a1f;
+    border-radius: 50px;
+}
+
+.nk-user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(90deg, #ff6a13, #ff9a2e);
+    border: none;
+    border-radius: 50px;
+}
+
+.nk-user-btn i {
+    font-size: 1.3rem;
+}
+
+.nk-user-btn:hover {
+    color: #fff;
+    filter: brightness(1.08);
+}
+
+.nk-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 991px) {
+    .nk-nav-logo {
+        height: 48px;
+    }
+
+    .nk-nav-actions {
+        gap: 14px;
+    }
+
+    .nk-user-btn {
+        padding: 8px 14px;
+    }
+
+    .nk-navbar .navbar-collapse {
+        margin-top: 10px;
+    }
+
+    .nk-navbar .nav-link {
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    .nk-navbar .nav-link.active::after {
+        display: none;
+    }
+
+    .nk-navbar .nav-link.active {
+        color: #ff9a2e;
+    }
+}

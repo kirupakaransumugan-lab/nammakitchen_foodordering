@@ -1,10 +1,12 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import { CartProvider } from "./context/CartContext";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/customer/Home";
+import About from "./pages/customer/About";
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
@@ -27,48 +29,56 @@ function StartPage() {
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<StartPage />} />
+        // CartProvider shares one cart with every page
+        <CartProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<StartPage />} />
 
-                {/* Public pages */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                    {/* Public pages */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
 
-                {/* Customer only */}
-                <Route
-                    path="/home"
-                    element={
-                        <ProtectedRoute allowedRoles={["customer"]}>
-                            <Home />
-                        </ProtectedRoute>
-                    }
-                />
+                    {/* Customer only */}
+                    <Route
+                        path="/home"
+                        element={
+                            <ProtectedRoute allowedRoles={["customer"]}>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                    />
 
-                {/* Restaurant owner only */}
-                <Route
-                    path="/owner"
-                    element={
-                        <ProtectedRoute allowedRoles={["owner"]}>
-                            <OwnerDashboard />
-                        </ProtectedRoute>
-                    }
-                />
+                    <Route
+                        path="/about"
+                        element={<About />}
+                    />
 
-                {/* Admin only */}
-                <Route
-                    path="/admin"
-                    element={
-                        <ProtectedRoute allowedRoles={["admin"]}>
-                            <AdminDashboard />
-                        </ProtectedRoute>
-                    }
-                />
+                    {/* Restaurant owner only */}
+                    <Route
+                        path="/owner"
+                        element={
+                            <ProtectedRoute allowedRoles={["owner"]}>
+                                <OwnerDashboard />
+                            </ProtectedRoute>
+                        }
+                    />
 
-                {/* Unknown URL -> start page */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-        </BrowserRouter>
+                    {/* Admin only */}
+                    <Route
+                        path="/admin"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <AdminDashboard />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    {/* Unknown URL -> start page */}
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+            </BrowserRouter>
+        </CartProvider>
     );
 }
 

@@ -1,0 +1,40 @@
+/* Loading, error and empty messages used on many pages */
+
+.page-state {
+    padding: 40px 16px;
+    text-align: center;
+    color: #6c757d;
+}
+
+.page-state-icon {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 2.4rem;
+    color: #ff7a1a;
+}
+
+.page-state-spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 12px;
+    color: #ff7a1a;
+}
+
+.page-state-error .page-state-icon {
+    color: #dc3545;
+}
+
+.page-state-retry {
+    margin-top: 12px;
+    padding: 8px 22px;
+    font-weight: 500;
+    color: #ff7a1a;
+    background: transparent;
+    border: 1px solid #ff7a1a;
+    border-radius: 50px;
+}
+
+.page-state-retry:hover {
+    color: #fff;
+    background: #ff7a1a;
+}

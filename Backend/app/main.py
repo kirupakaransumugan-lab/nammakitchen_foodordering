@@ -7,9 +7,9 @@ from app.config import settings
 from app.database import Base, engine, get_db
 
 # Import every model here, so create_all knows which tables to make.
-from app.models import user  # noqa: F401
+from app import models  # noqa: F401
 
-from app.routers import auth
+from app.routers import auth, categories, foods
 
 
 Base.metadata.create_all(bind=engine)
@@ -35,6 +35,8 @@ app.add_middleware(
 
 
 app.include_router(auth.router, prefix="/api")
+app.include_router(categories.router, prefix="/api")
+app.include_router(foods.router, prefix="/api")
 
 
 @app.get("/")
