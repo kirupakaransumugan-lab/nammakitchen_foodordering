@@ -1,7 +1,7 @@
 from datetime import datetime
 from decimal import Decimal
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Numeric, String, func
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Numeric, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -36,6 +36,23 @@ class Food(Base):
         nullable=False
     )
 
+    # Sale price. Empty = no discount, the normal price is used.
+    discount_price: Mapped[Decimal | None] = mapped_column(
+        Numeric(10, 2),
+        nullable=True
+    )
+
+    # Minutes to cook, e.g. 30 (optional)
+    prep_time: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True
+    )
+
+    calories: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True
+    )
+
     image: Mapped[str | None] = mapped_column(
         String(255),
         nullable=True
@@ -55,3 +72,19 @@ class Food(Base):
 
     # Each food belongs to one category
     category = relationship("Category", back_populates="foods")
+
+    # Size, crust, toppings, ... (deleted together with the food)
+    option_groups = relationship(
+        "FoodOptionGroup",
+        back_populates="food",
+        cascade="all, delete-orphan",
+        order_by="(FoodOptionGroup.sort_order, FoodOptionGroup.id)"
+    )
+
+    # Extra photos for the popup
+    images = relationship(
+        "FoodImage",
+        back_populates="food",
+        cascade="all, delete-orphan",
+        order_by="(FoodImage.sort_order, FoodImage.id)"
+    )

@@ -1,5 +1,7 @@
+import { useCallback, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
+import CartPopup from "./CartPopup";
 import logo from "../assets/logo.png";
 import { useCart } from "../context/CartContext";
 import { getCurrentUser, logoutUser } from "../services/authService";
@@ -18,6 +20,29 @@ function Navbar() {
     const firstName = user ? user.name.split(" ")[0] : "";
 
 
+    // null = cart popup closed, { top, right } = open at that place
+    const [cartPosition, setCartPosition] = useState(null);
+
+
+    // Open the cart card just under the cart button
+    function toggleCart(event) {
+        if (cartPosition) {
+            setCartPosition(null);
+            return;
+        }
+
+        const button = event.currentTarget.getBoundingClientRect();
+
+        setCartPosition({
+            top: button.bottom + 12,
+            right: Math.max(10, window.innerWidth - button.right - 8)
+        });
+    }
+
+    // useCallback keeps the same function, so the popup's Esc listener is not re-added every render
+    const closeCart = useCallback(() => setCartPosition(null), []);
+
+
     function handleLogout() {
         logoutUser();
         clearCart();
@@ -34,13 +59,23 @@ function Navbar() {
 
                 {/* Right side: cart + user (always visible, also on mobile) */}
                 <div className="nk-nav-actions order-lg-3">
-                    <Link to="/cart" className="nk-cart-btn" aria-label="Cart">
+                    <button
+                        type="button"
+                        className="nk-cart-btn"
+                        onClick={toggleCart}
+                        aria-label="Cart"
+                        aria-expanded={cartPosition !== null}
+                    >
                         <i className="bi bi-cart3"></i>
 
                         {cartCount > 0 && (
                             <span className="nk-cart-badge">{cartCount}</span>
                         )}
-                    </Link>
+                    </button>
+
+                    {cartPosition && (
+                        <CartPopup position={cartPosition} onClose={closeCart} />
+                    )}
 
                     {user ? (
                         <div className="dropdown">
@@ -95,9 +130,6 @@ function Navbar() {
                         </li>
                         <li className="nav-item">
                             <NavLink to="/menu" className="nav-link">Menu</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <a href="#categories" className="nav-link">Categories</a>
                         </li>
                         <li className="nav-item">
                             <NavLink to="/my-orders" className="nav-link">My Orders</NavLink>

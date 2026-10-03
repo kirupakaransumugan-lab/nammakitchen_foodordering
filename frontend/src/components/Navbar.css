@@ -52,9 +52,13 @@
 
 .nk-cart-btn {
     position: relative;
+    padding: 0;
     font-size: 1.7rem;
+    line-height: 1;
     color: #fff;
     text-decoration: none;
+    background: none;
+    border: none;
 }
 
 .nk-cart-btn:hover {

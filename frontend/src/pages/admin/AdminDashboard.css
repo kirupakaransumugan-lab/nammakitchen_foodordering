@@ -1,0 +1,230 @@
+/* =========================
+   Admin pages: shared pieces + dashboard
+   ========================= */
+
+/* ---------- Hero ---------- */
+
+.admin-hero {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px 24px;
+}
+
+.admin-eyebrow {
+    margin: 0 0 2px;
+    font-weight: 600;
+    color: #ff5a13;
+}
+
+.admin-hero h1 {
+    margin: 0 0 4px;
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #1d1d1d;
+}
+
+.admin-hero p:not(.owner-hero-quote):not(.admin-eyebrow) {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #5a5a5a;
+}
+
+/* Date range: white box, the real <select> lies on top, invisible */
+.admin-range {
+    position: relative;
+    padding: 10px 40px 10px 16px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #1d1d1d;
+    background: #fff;
+    border: 1px solid #f0e4d8;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(120, 72, 30, 0.06);
+}
+
+.admin-range::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #4a4a4a;
+    border-bottom: 2px solid #4a4a4a;
+    transform: translateY(-70%) rotate(45deg);
+}
+
+.admin-range select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* ---------- Number cards ---------- */
+
+.admin-stats {
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+}
+
+.admin-stat.stat-card {
+    padding: 16px;
+    gap: 14px;
+    box-shadow: 0 6px 20px rgba(120, 72, 30, 0.08);
+}
+
+.admin-stat .stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+}
+
+.admin-stat .stat-value {
+    font-size: 1.45rem;
+}
+
+.stat-icon.blue { background: linear-gradient(135deg, #2f6fe0, #5b9bff); }
+.stat-icon.purple { background: linear-gradient(135deg, #7a33e6, #a578ff); }
+
+
+/* ---------- Rows of panels ---------- */
+
+.admin-row {
+    margin-bottom: 20px;
+    display: grid;
+    gap: 20px;
+    align-items: start;
+}
+
+.admin-row-wide {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+.admin-row-half {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-link {
+    margin-top: 14px;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ff5a13;
+    text-decoration: none;
+}
+
+
+/* ---------- Bars (users by role, sales per category) ---------- */
+
+.role-bars {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none;
+}
+
+.role-bars-label {
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #3a3a3a;
+}
+
+.role-bars-label small {
+    color: #8a8a8a;
+}
+
+.role-bars-track {
+    height: 10px;
+    overflow: hidden;
+    background: #f5efe9;
+    border-radius: 50px;
+}
+
+.role-bars-track span {
+    height: 100%;
+    display: block;
+    background: #ff6a13;
+    border-radius: 50px;
+}
+
+
+/* ---------- Shortcuts ---------- */
+
+.admin-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-link-card {
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #1d1d1d;
+    text-decoration: none;
+    background: #fff;
+    border: 1.5px solid transparent;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(120, 72, 30, 0.08);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.admin-link-card:hover {
+    color: #1d1d1d;
+    border-color: #ffb784;
+    transform: translateY(-2px);
+}
+
+.admin-link-icon {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff5a13;
+    background: #fff1e6;
+    border-radius: 12px;
+}
+
+.admin-link-card strong {
+    display: block;
+}
+
+.admin-link-card small {
+    color: #8a8a8a;
+}
+
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 1199px) {
+    .admin-row-wide,
+    .admin-row-half {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .admin-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-hero h1 {
+        font-size: 2rem;
+    }
+}

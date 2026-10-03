@@ -1,0 +1,46 @@
+/* =========================
+   Admin: Restaurant + User reports
+   ========================= */
+
+.report-section {
+    margin-bottom: 20px;
+}
+
+.report-table-wrap {
+    overflow-x: auto;
+}
+
+/* "12 active · 2 deactivated" under the role bars */
+.report-split {
+    margin: 18px 0 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.report-split .cust-status {
+    padding: 3px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 50px;
+}
+
+.report-split .cust-status.on {
+    color: #23824a;
+    background: #e6f6ec;
+}
+
+.report-split .cust-status.off {
+    color: #c92a2a;
+    background: #fdecec;
+}
+
+.panel-head .muted {
+    color: #8a8a8a;
+}
+
+@media (max-width: 767px) {
+    .admin-hero .admin-range {
+        justify-self: start;
+    }
+}

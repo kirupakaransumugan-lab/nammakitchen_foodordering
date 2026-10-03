@@ -1,0 +1,99 @@
+/* =========================
+   Admin: activity list (who did what, when)
+   ========================= */
+
+.activity-tabs {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid #f2ebe4;
+}
+
+.activity-tabs button {
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #6c6c6c;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+.activity-tabs button.active {
+    color: #ff5a13;
+    border-bottom-color: #ff5a13;
+}
+
+.activity-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.activity-list li {
+    padding: 10px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border-bottom: 1px solid #f5efe9;
+}
+
+.activity-list li:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.activity-icon.blue { color: #1c6fc0; background: #e3f0fd; }
+.activity-icon.green { color: #23824a; background: #e4f6ea; }
+.activity-icon.orange { color: #c25400; background: #fff0e0; }
+.activity-icon.red { color: #c92a2a; background: #fde8e8; }
+.activity-icon.purple { color: #7a33e6; background: #f1e8ff; }
+.activity-icon.grey { color: #5a5a5a; background: #f1eeea; }
+
+.activity-text {
+    min-width: 0;
+    flex: 1;
+}
+
+.activity-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #3a3a3a;
+    word-break: break-word;
+}
+
+.activity-text strong {
+    color: #1d1d1d;
+}
+
+.activity-text small {
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #8a8a8a;
+}
+
+
+/* Small coloured role label (also used in the users table) */
+.role-badge {
+    padding: 1px 9px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border-radius: 50px;
+}
+
+.role-badge.customer { color: #1c6fc0; background: #e3f0fd; }
+.role-badge.owner { color: #c25400; background: #fff0e0; }
+.role-badge.admin { color: #7a33e6; background: #f1e8ff; }
+.role-badge.system { color: #5a5a5a; background: #f1eeea; }

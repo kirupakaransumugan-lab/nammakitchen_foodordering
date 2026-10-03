@@ -37,3 +37,6 @@ frontend/build/
 .DS_Store
 Thumbs.db
 *.log
+
+# Photos uploaded by the owner
+Backend/uploads/

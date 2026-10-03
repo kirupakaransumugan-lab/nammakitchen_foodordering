@@ -1,0 +1,20 @@
+/* Order status pill (My Orders + owner dashboard).
+   Same hues as the owner's Order Status chart (utils/orderStatus.js). */
+
+.order-status {
+    padding: 6px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: 50px;
+}
+
+.order-status.pending { color: #b35f00; background: #fff4dc; }
+.order-status.confirmed { color: #1c6fc0; background: #e3f0fd; }
+.order-status.preparing { color: #23824a; background: #e4f6ea; }
+.order-status.delivery { color: #7a33e6; background: #f1e8ff; }
+.order-status.delivered { color: #0b7a71; background: #dcf5f2; }
+.order-status.cancelled { color: #c92a2a; background: #fde8e8; }

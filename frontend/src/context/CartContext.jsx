@@ -8,15 +8,34 @@ const CartContext = createContext(null);
 function loadCart() {
     try {
         const saved = localStorage.getItem("cart");
-        return saved ? JSON.parse(saved) : [];
+        const items = saved ? JSON.parse(saved) : [];
+
+        // Carts saved before options existed have no key: give them one
+        return items.map((item) => ({
+            options: [],
+            note: "",
+            key: String(item.id),
+            ...item
+        }));
     } catch {
         return [];
     }
 }
 
 
+// One cart line = one food with one set of choices.
+// "Small pizza" and "Large pizza + cheese" are 2 lines, so each needs its own key.
+function makeKey(foodId, options, note) {
+    const optionIds = options.map((option) => option.id).sort((a, b) => a - b);
+    return `${foodId}|${optionIds.join(",")}|${note}`;
+}
+
+
 export function CartProvider({ children }) {
-    // Each item: { id, name, price, image, quantity }
+    // Each item:
+    // { key, id, name, image, price, quantity, note,
+    //   options: [{ id, group, name, extra_price }] }
+    // "price" is for ONE item, with the options already added.
     const [cartItems, setCartItems] = useState(loadCart);
 
     // Save the cart every time it changes, so a refresh does not empty it
@@ -25,48 +44,66 @@ export function CartProvider({ children }) {
     }, [cartItems]);
 
 
-    function addToCart(food) {
-        const existing = cartItems.find((item) => item.id === food.id);
+    // choices: { quantity, options, note } (all optional)
+    function addToCart(food, choices = {}) {
+        const quantity = choices.quantity || 1;
+        const options = choices.options || [];
+        const note = (choices.note || "").trim();
+        const key = makeKey(food.id, options, note);
 
-        if (existing) {
-            increaseQuantity(food.id);
-            return;
+        let price = Number(food.price);
+        for (const option of options) {
+            price += Number(option.extra_price);
         }
 
-        const newItem = {
-            id: food.id,
-            name: food.name,
-            price: food.price,
-            image: food.image,
-            quantity: 1
-        };
+        // "current" = the latest cart, even if two adds happen quickly
+        setCartItems((current) => {
+            const existing = current.find((item) => item.key === key);
 
-        setCartItems([...cartItems, newItem]);
+            if (existing) {
+                return current.map((item) =>
+                    item.key === key ? { ...item, quantity: item.quantity + quantity } : item
+                );
+            }
+
+            const newItem = {
+                key: key,
+                id: food.id,
+                name: food.name,
+                image: food.image,
+                price: price,
+                quantity: quantity,
+                options: options,
+                note: note
+            };
+
+            return [...current, newItem];
+        });
     }
 
 
-    function increaseQuantity(foodId) {
-        setCartItems(
-            cartItems.map((item) =>
-                item.id === foodId ? { ...item, quantity: item.quantity + 1 } : item
+    function increaseQuantity(key) {
+        setCartItems((current) =>
+            current.map((item) =>
+                item.key === key ? { ...item, quantity: item.quantity + 1 } : item
             )
         );
     }
 
 
-    function decreaseQuantity(foodId) {
-        setCartItems(
-            cartItems
+    function decreaseQuantity(key) {
+        setCartItems((current) =>
+            current
                 .map((item) =>
-                    item.id === foodId ? { ...item, quantity: item.quantity - 1 } : item
+                    item.key === key ? { ...item, quantity: item.quantity - 1 } : item
                 )
                 .filter((item) => item.quantity > 0)
         );
     }
 
 
-    function removeFromCart(foodId) {
-        setCartItems(cartItems.filter((item) => item.id !== foodId));
+    function removeFromCart(key) {
+        setCartItems((current) => current.filter((item) => item.key !== key));
     }
 
 

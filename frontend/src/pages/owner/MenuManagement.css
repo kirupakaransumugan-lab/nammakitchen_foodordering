@@ -1,0 +1,548 @@
+/* =========================
+   Owner: Menu Management (Food Menu)
+   ========================= */
+
+/* ---------- Hero ---------- */
+
+.menu-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 6px 24px;
+}
+
+.menu-eyebrow {
+    margin: 0 0 2px;
+    font-weight: 600;
+    color: #ff5a13;
+}
+
+.menu-hero h1 {
+    margin: 0 0 4px;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1d1d1d;
+}
+
+.menu-hero-text > p:last-child {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #5a5a5a;
+}
+
+.menu-hero-bar {
+    grid-column: 1 / -1;
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.menu-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.menu-tab {
+    padding: 9px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #3a3a3a;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #f0e4d8;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.menu-tab:hover {
+    color: #ff5a13;
+}
+
+.menu-tab.active {
+    color: #fff;
+    background: linear-gradient(90deg, #ff5a13, #ff7a2e);
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(255, 106, 19, 0.3);
+}
+
+.menu-add-btn {
+    padding: 10px 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #ff5a13, #ff7a2e);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(255, 106, 19, 0.3);
+}
+
+.menu-add-btn:disabled {
+    opacity: 0.5;
+    box-shadow: none;
+}
+
+
+/* ---------- Three columns: categories | foods | form ---------- */
+
+.menu-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) 400px;
+    grid-template-areas: "cats foods form";
+    align-items: start;
+    gap: 20px;
+}
+
+.menu-categories { grid-area: cats; }
+.menu-foods { grid-area: foods; }
+.menu-form-panel { grid-area: form; }
+
+/* The form stays in view while the owner scrolls the list */
+.menu-form-panel {
+    position: sticky;
+    top: 16px;
+    scroll-margin-top: 16px;
+}
+
+.menu-form-head {
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f2ebe4;
+}
+
+.menu-round-btn {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: linear-gradient(135deg, #ff5a13, #ff7a2e);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(255, 106, 19, 0.35);
+}
+
+
+/* ---------- Category list ---------- */
+
+.menu-category-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+}
+
+.menu-category-row {
+    position: relative;
+}
+
+.menu-category {
+    width: 100%;
+    padding: 8px 40px 8px 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    background: #fff;
+    border: 1.5px solid #f2ebe4;
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.menu-category:hover {
+    border-color: #ffc9a3;
+}
+
+.menu-category.active {
+    background: #fff6ef;
+    border-color: #ff8a3d;
+}
+
+.menu-category-thumb.thumb {
+    width: 54px;
+    height: 46px;
+    border-radius: 10px;
+}
+
+.menu-category-thumb.thumb-empty {
+    color: #ff8a3d;
+}
+
+.menu-category-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-category-text strong {
+    overflow: hidden;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.menu-category-text small {
+    font-size: 0.8rem;
+    color: #8a8a8a;
+}
+
+.menu-category-menu {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+}
+
+
+/* ---------- Foods panel head ---------- */
+
+.menu-foods-head {
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.menu-foods-head h2 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.menu-foods-head small {
+    margin-left: 34px;
+    color: #8a8a8a;
+}
+
+.menu-foods-tools {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-view-toggle {
+    display: flex;
+    overflow: hidden;
+    border: 1px solid #ece4dc;
+    border-radius: 10px;
+}
+
+.menu-view-toggle button {
+    width: 38px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a4a4a;
+    background: #fff;
+    border: none;
+}
+
+.menu-view-toggle button.active {
+    color: #ff5a13;
+    background: #fff1e6;
+}
+
+
+/* ---------- Food items: list (default) ---------- */
+
+.menu-food-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-food {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border: 1.5px solid #f2ebe4;
+    border-radius: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.menu-food:hover {
+    box-shadow: 0 6px 16px rgba(120, 72, 30, 0.08);
+}
+
+.menu-food.editing {
+    border-color: #ff8a3d;
+}
+
+.menu-food-img.thumb {
+    width: 100px;
+    height: 84px;
+    border-radius: 10px;
+}
+
+.menu-food-img.thumb-empty {
+    font-size: 1.4rem;
+}
+
+.menu-food-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.menu-food-info h3 {
+    margin: 0 0 4px;
+    overflow: hidden;
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.menu-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ff5a13;
+}
+
+.menu-price del {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #9a9a9a;
+}
+
+.menu-food-meta {
+    margin: 4px 0 0;
+    display: flex;
+    gap: 16px;
+    font-size: 0.82rem;
+    color: #6c6c6c;
+}
+
+.menu-food-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.menu-food-meta .flame {
+    color: #ff6a13;
+}
+
+.menu-food-info .category-pill {
+    margin-top: 6px;
+    display: inline-block;
+}
+
+.menu-food-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.menu-status {
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: none;
+    border-radius: 50px;
+}
+
+.menu-status.on {
+    color: #23824a;
+    background: #e6f6ec;
+}
+
+.menu-status.off {
+    color: #c92a2a;
+    background: #fdecec;
+}
+
+.menu-status:disabled {
+    opacity: 0.6;
+}
+
+.menu-food-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.menu-edit-btn,
+.menu-delete-btn {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #ece4dc;
+    border-radius: 10px;
+}
+
+.menu-edit-btn {
+    padding: 0 14px;
+    color: #1d1d1d;
+}
+
+.menu-edit-btn:hover {
+    border-color: #ff9a5c;
+}
+
+.menu-delete-btn {
+    width: 36px;
+    color: #e03131;
+}
+
+.menu-delete-btn:hover:not(:disabled) {
+    background: #fdecec;
+    border-color: #f5b5b5;
+}
+
+
+/* ---------- Food items: grid ---------- */
+
+.menu-food-list.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+}
+
+.menu-food-list.grid .menu-food {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-food-list.grid .menu-food-img.thumb {
+    width: 100%;
+    height: 130px;
+}
+
+.menu-food-list.grid .menu-food-side {
+    align-items: stretch;
+}
+
+.menu-food-list.grid .menu-status {
+    align-self: flex-start;
+}
+
+.menu-food-list.grid .menu-edit-btn {
+    flex: 1;
+}
+
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 1599px) {
+    .menu-layout {
+        grid-template-columns: 250px minmax(0, 1fr) 360px;
+    }
+}
+
+/* Form goes under the two lists */
+@media (max-width: 1399px) {
+    .menu-layout {
+        grid-template-columns: 260px minmax(0, 1fr);
+        grid-template-areas:
+            "cats foods"
+            "form form";
+    }
+
+    .menu-form-panel {
+        position: static;
+        width: 100%;
+        max-width: 720px;
+        justify-self: center;
+    }
+}
+
+/* One column; categories become a row that scrolls sideways */
+@media (max-width: 991px) {
+    .menu-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-layout {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "cats"
+            "foods"
+            "form";
+    }
+
+    .menu-category-list {
+        padding-bottom: 6px;
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .menu-category-list > li {
+        flex: 0 0 220px;
+    }
+}
+
+@media (max-width: 575px) {
+    .menu-hero h1 {
+        font-size: 2.1rem;
+    }
+
+    .menu-hero-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .menu-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .menu-tab {
+        flex-shrink: 0;
+    }
+
+    .menu-add-btn {
+        justify-content: center;
+    }
+
+    .menu-food {
+        flex-wrap: wrap;
+    }
+
+    .menu-food-img.thumb {
+        width: 84px;
+        height: 72px;
+    }
+
+    .menu-food-info {
+        flex-basis: calc(100% - 100px);
+    }
+
+    .menu-food-side {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

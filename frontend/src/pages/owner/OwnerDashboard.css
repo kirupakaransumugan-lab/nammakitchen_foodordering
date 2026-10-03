@@ -1,0 +1,669 @@
+/* =========================
+   Owner dashboard
+   (sidebar / top bar / hero frame are in OwnerLayout.css)
+   ========================= */
+
+
+/* ---------- Hero text + date range ---------- */
+
+.dash-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.dash-hero h1 {
+    margin: 0 0 6px;
+    font-size: 2.8rem;
+    font-weight: 800;
+}
+
+.dash-hero h1 span {
+    color: #ff7a1a;
+}
+
+.dash-hero p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* White box with the dates; the real <select> lies on top, invisible */
+.dash-range {
+    position: relative;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    color: #1d1d1d;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.dash-range::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin: -4px 2px 0 6px;
+    border-right: 2px solid #1d1d1d;
+    border-bottom: 2px solid #1d1d1d;
+    transform: rotate(45deg);
+}
+
+.dash-range select {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* ---------- Panels (white boxes) ---------- */
+
+.panel {
+    min-width: 0;
+    padding: 20px 22px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(120, 72, 30, 0.08);
+}
+
+.panel-head {
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.panel-head h2 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1d1d1d;
+}
+
+.panel-icon {
+    color: #ff6a13;
+}
+
+.panel-select {
+    padding: 7px 12px;
+    font-size: 0.9rem;
+    background: #fff;
+    border: 1px solid #ece4dc;
+    border-radius: 10px;
+    outline: none;
+}
+
+.panel-btn {
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #fff;
+    background: linear-gradient(90deg, #ff5a13, #ff7a2e);
+    border: none;
+    border-radius: 10px;
+}
+
+.panel-btn:disabled {
+    opacity: 0.5;
+}
+
+.panel-empty {
+    margin: 0;
+    padding: 24px 0;
+    text-align: center;
+    color: #8a8a8a;
+}
+
+.dash-row {
+    margin-top: 20px;
+    display: grid;
+    gap: 20px;
+}
+
+.dash-row-charts {
+    grid-template-columns: 1.55fr 1fr;
+}
+
+.dash-row-lists {
+    grid-template-columns: 1.55fr 1fr;
+}
+
+.dash-row-menu {
+    grid-template-columns: 1fr 1fr;
+}
+
+
+/* ---------- Stat cards ---------- */
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(120, 72, 30, 0.12);
+}
+
+.stat-icon {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.stat-icon.orange { background: linear-gradient(135deg, #ff6a13, #ff9a2e); }
+.stat-icon.green { background: linear-gradient(135deg, #2e9d5b, #4cc27c); }
+.stat-icon.amber { background: linear-gradient(135deg, #f59f00, #ffc233); }
+.stat-icon.red { background: linear-gradient(135deg, #e03131, #ff5c5c); }
+
+.stat-label {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1d1d1d;
+}
+
+.stat-value {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #1d1d1d;
+}
+
+.stat-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.stat-change small {
+    margin-left: 4px;
+    font-weight: 400;
+    color: #8a8a8a;
+}
+
+.stat-change.up { color: #23824a; }
+.stat-change.down { color: #c92a2a; }
+.stat-change.none { font-weight: 400; color: #8a8a8a; }
+
+
+/* ---------- Sales chart ---------- */
+
+.sales-chart {
+    position: relative;
+    width: 100%;
+}
+
+.sales-chart svg {
+    display: block;
+}
+
+.chart-grid {
+    stroke: #f1ebe5;
+    stroke-width: 1;
+}
+
+.chart-axis {
+    font-size: 11px;
+    fill: #8a8a8a;
+}
+
+.chart-crosshair {
+    stroke: #c9bcb0;
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+}
+
+.chart-tooltip {
+    position: absolute;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #1d1d1d;
+    white-space: nowrap;
+    background: #fff;
+    border: 1px solid #ece4dc;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translate(-50%, -100%);
+    pointer-events: none;
+}
+
+.chart-tooltip span {
+    color: #6c6c6c;
+}
+
+
+/* ---------- Status donut ---------- */
+
+.status-donut {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.status-donut-chart {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.status-donut-slice {
+    cursor: pointer;
+    transition: stroke-width 0.15s;
+}
+
+.status-donut-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.status-donut-center strong {
+    font-size: 1.8rem;
+    line-height: 1.1;
+}
+
+.status-donut-center span {
+    font-size: 0.85rem;
+    color: #6c6c6c;
+}
+
+.status-donut-legend {
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.status-donut-legend li {
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+}
+
+.status-donut-legend li.active {
+    background: #faf5f0;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-name {
+    flex: 1;
+    color: #1d1d1d;
+}
+
+.legend-value {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.legend-value small {
+    font-weight: 400;
+    color: #8a8a8a;
+}
+
+
+/* ---------- Tables ---------- */
+
+.dash-table {
+    width: 100%;
+    font-size: 0.88rem;
+    border-collapse: collapse;
+}
+
+.dash-table th {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #6c6c6c;
+    background: #faf6f2;
+}
+
+.dash-table th:first-child { border-radius: 8px 0 0 8px; }
+.dash-table th:last-child { border-radius: 0 8px 8px 0; }
+
+.dash-table td {
+    padding: 9px 10px;
+    color: #1d1d1d;
+    border-bottom: 1px solid #f4eee8;
+}
+
+.dash-table tr:last-child td {
+    border-bottom: none;
+}
+
+.dash-table .muted {
+    font-size: 0.8rem;
+    color: #8a8a8a;
+}
+
+.dash-table .money {
+    font-weight: 700;
+    white-space: nowrap;
+    color: #ff5a1f;
+}
+
+.dash-table .order-id {
+    font-weight: 700;
+    color: #ff5a1f;
+}
+
+.dash-table .order-status {
+    padding: 4px 10px;
+    font-size: 0.78rem;
+}
+
+.dash-table tr.row-off td {
+    color: #9a9a9a;
+}
+
+.with-thumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.thumb {
+    flex-shrink: 0;
+    width: 46px;
+    height: 34px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.thumb-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e0c9b5;
+    background: #fbf1e7;
+}
+
+.row-menu-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1d1d1d;
+    background: none;
+    border: none;
+    border-radius: 50%;
+}
+
+.row-menu-btn:hover:not(:disabled) {
+    background: #f4ece4;
+}
+
+.row-menu-btn:disabled {
+    opacity: 0.3;
+}
+
+.category-pill {
+    padding: 3px 12px;
+    font-size: 0.8rem;
+    color: #c2410c;
+    white-space: nowrap;
+    background: #ffedd5;
+    border-radius: 50px;
+}
+
+/* Orange on/off switch */
+.nk-switch {
+    margin: 0;
+    min-height: 0;
+}
+
+.nk-switch .form-check-input {
+    width: 2.4em;
+    height: 1.3em;
+    cursor: pointer;
+}
+
+.nk-switch .form-check-input:checked {
+    background-color: #2e9d5b;
+    border-color: #2e9d5b;
+}
+
+.nk-switch .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(46, 157, 91, 0.2);
+}
+
+.table-pages {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: #6c6c6c;
+}
+
+.table-pages button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #ece4dc;
+    border-radius: 8px;
+}
+
+.table-pages button:disabled {
+    opacity: 0.4;
+}
+
+
+/* ---------- Top selling foods ---------- */
+
+.top-foods {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.top-foods li {
+    padding: 7px 0;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 44px;
+    align-items: center;
+    gap: 14px;
+}
+
+.top-foods .thumb {
+    width: 64px;
+    height: 44px;
+}
+
+.top-food-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-food-info strong {
+    overflow: hidden;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.top-food-info small {
+    color: #8a8a8a;
+}
+
+.top-food-bar {
+    height: 8px;
+    overflow: hidden;
+    background: #f4ece4;
+    border-radius: 8px;
+}
+
+.top-food-bar span {
+    height: 100%;
+    display: block;
+    background: #ff6a13;
+    border-radius: 8px;
+}
+
+.top-food-pct {
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+
+/* ---------- Category tiles ---------- */
+
+.category-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 12px;
+}
+
+.category-tile .thumb {
+    width: 100%;
+    height: 62px;
+}
+
+.category-tile-row {
+    margin-top: 6px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.category-tile-row strong {
+    display: block;
+    font-size: 0.88rem;
+}
+
+.category-tile-row small {
+    color: #8a8a8a;
+}
+
+
+/* ---------- Message (bottom right) ---------- */
+
+.dash-notice {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1060;
+    max-width: 360px;
+    padding: 12px 18px;
+    font-size: 0.9rem;
+    color: #fff;
+    background: #1d1d1d;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 1399px) {
+    .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dash-row-charts,
+    .dash-row-lists,
+    .dash-row-menu {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .dash-hero h1 {
+        font-size: 2rem;
+    }
+
+    .status-donut {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .status-donut-legend {
+        width: 100%;
+    }
+
+    .hide-sm {
+        display: none;
+    }
+
+    .dash-table td {
+        padding: 8px 6px;
+    }
+}
+
+@media (max-width: 575px) {
+    .stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 16px 14px;
+    }
+
+    .dash-range {
+        width: 100%;
+    }
+
+    .top-foods li {
+        grid-template-columns: auto 1fr 44px;
+    }
+
+    .top-food-bar {
+        display: none;
+    }
+
+    .with-thumb .thumb {
+        display: none;
+    }
+}

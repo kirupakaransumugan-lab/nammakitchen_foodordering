@@ -11,6 +11,8 @@ ROLE_ADMIN = "admin"
 ROLE_OWNER = "owner"
 ROLE_CUSTOMER = "customer"
 
+ALL_ROLES = [ROLE_CUSTOMER, ROLE_OWNER, ROLE_ADMIN]
+
 
 class User(Base):
     __tablename__ = "users"
@@ -63,4 +65,10 @@ class User(Base):
         DateTime,
         server_default=func.now(),
         nullable=False
+    )
+
+    # Updated on every login (empty = never logged in since this was added)
+    last_login_at: Mapped[datetime | None] = mapped_column(
+        DateTime,
+        nullable=True
     )

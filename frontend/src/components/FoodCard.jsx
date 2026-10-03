@@ -1,37 +1,35 @@
 import { useState } from "react";
 
-import { useCart } from "../context/CartContext";
+import FoodModal from "./FoodModal";
 import { formatPrice } from "../utils/format";
 
 import "./Cards.css";
 
 
 function FoodCard({ food }) {
-    const { addToCart } = useCart();
-
     const [liked, setLiked] = useState(false);
-    const [justAdded, setJustAdded] = useState(false);
 
-
-    function handleAdd() {
-        addToCart(food);
-
-        // Show "Added" for 1 second, then go back to "Add"
-        setJustAdded(true);
-        setTimeout(() => setJustAdded(false), 1000);
-    }
+    // "Add" opens the popup, where the customer picks size, toppings, ...
+    const [showModal, setShowModal] = useState(false);
 
 
     return (
         <div className="food-card">
             <div className="food-card-img">
-                {food.image ? (
-                    <img src={food.image} alt={food.name} />
-                ) : (
-                    <span className="img-placeholder">
-                        <i className="bi bi-image"></i>
-                    </span>
-                )}
+                <button
+                    type="button"
+                    className="food-card-img-btn"
+                    onClick={() => setShowModal(true)}
+                    aria-label={`Open ${food.name}`}
+                >
+                    {food.image ? (
+                        <img src={food.image} alt={food.name} />
+                    ) : (
+                        <span className="img-placeholder">
+                            <i className="bi bi-image"></i>
+                        </span>
+                    )}
+                </button>
 
                 <button
                     type="button"
@@ -52,13 +50,22 @@ function FoodCard({ food }) {
 
                 <button
                     type="button"
-                    className={justAdded ? "food-add-btn added" : "food-add-btn"}
-                    onClick={handleAdd}
+                    className="food-add-btn"
+                    onClick={() => setShowModal(true)}
                 >
-                    <i className={justAdded ? "bi bi-check-lg" : "bi bi-cart3"}></i>
-                    {justAdded ? "Added" : "Add"}
+                    <i className="bi bi-cart3"></i>
+                    Add
                 </button>
             </div>
+
+            {showModal && (
+                <FoodModal
+                    food={food}
+                    liked={liked}
+                    onToggleLike={() => setLiked(!liked)}
+                    onClose={() => setShowModal(false)}
+                />
+            )}
         </div>
     );
 }

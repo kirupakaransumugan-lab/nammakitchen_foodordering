@@ -1,0 +1,113 @@
+/* =========================
+   Admin: Users (activate / deactivate, roles)
+   (list + side panel layout comes from owner/Customers.css)
+   ========================= */
+
+.users-bar {
+    margin-bottom: 18px;
+}
+
+.users-email {
+    font-size: 0.8rem;
+    color: #8a8a8a;
+}
+
+.user-you {
+    margin-left: 6px;
+    padding: 1px 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    vertical-align: middle;
+    color: #fff;
+    background: #ff6a13;
+    border-radius: 50px;
+}
+
+/* Role dropdown in the table, coloured like the role badge */
+.user-role-select {
+    padding: 5px 28px 5px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+        linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: right 14px center, right 9px center;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.user-role-select.customer { color: #1c6fc0; background-color: #e3f0fd; }
+.user-role-select.owner { color: #c25400; background-color: #fff0e0; }
+.user-role-select.admin { color: #7a33e6; background-color: #f1e8ff; }
+
+.user-role-select:disabled {
+    cursor: default;
+    opacity: 0.75;
+}
+
+.users-table tr.row-off td {
+    opacity: 0.6;
+}
+
+/* Keep the controls clear even on a greyed-out row */
+.users-table tr.row-off td:nth-child(3),
+.users-table tr.row-off td:nth-child(6),
+.users-table tr.row-off td:last-child {
+    opacity: 1;
+}
+
+
+/* ---------- Panel: access controls ---------- */
+
+.user-access {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 12px;
+}
+
+.user-access .nk-field {
+    margin: 0;
+}
+
+.user-status-btn {
+    height: 42px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.user-status-btn.off {
+    color: #e03131;
+    background: #fff;
+    border: 1.5px solid #f5a8a8;
+}
+
+.user-status-btn.off:hover:not(:disabled) {
+    background: #fdecec;
+}
+
+.user-status-btn.on {
+    color: #fff;
+    background: #2e9d5b;
+    border: 1.5px solid #2e9d5b;
+}
+
+.user-status-btn:disabled {
+    opacity: 0.6;
+}
+
+.user-me-note {
+    margin: 0;
+    padding: 12px;
+    font-size: 0.88rem;
+    color: #6c6c6c;
+    background: #f7f2ed;
+    border-radius: 12px;
+}

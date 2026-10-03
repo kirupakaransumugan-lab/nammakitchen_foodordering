@@ -1,0 +1,240 @@
+/* =========================
+   Order card (My Orders page)
+   ========================= */
+
+.order-card {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 270px 1fr 200px 170px;
+    align-items: center;
+    gap: 24px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(120, 72, 30, 0.08);
+}
+
+/* When open, the picture and buttons stay at the top */
+.order-card.open {
+    align-items: start;
+}
+
+.order-card-img {
+    height: 105px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.order-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ---------- Middle: number, date, items ---------- */
+
+.order-card-info {
+    min-width: 0;
+}
+
+.order-card-title {
+    margin-bottom: 2px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1d1d1d;
+}
+
+.order-card-date {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.82rem;
+    color: #8a8a8a;
+}
+
+.order-card-dot {
+    margin: 0 4px;
+}
+
+.order-card-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.order-card-items li {
+    padding: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #1d1d1d;
+}
+
+.order-card-items img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.order-item-dot {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background: #fbf1e7;
+    border-radius: 50%;
+}
+
+.order-item-name small {
+    display: block;
+    font-size: 0.78rem;
+    color: #8a8a8a;
+}
+
+.order-item-qty {
+    color: #6c6c6c;
+}
+
+.order-item-price {
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.order-card-more {
+    margin: 2px 0 0 34px;
+    font-size: 0.82rem;
+    color: #ff6a13;
+}
+
+.order-card-details {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #f0e4d8;
+}
+
+.order-card-details p {
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #4a4a4a;
+}
+
+.order-cancel-btn {
+    margin-top: 4px;
+    padding: 7px 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #e03131;
+    background: #fff;
+    border: 1.5px solid #e03131;
+    border-radius: 50px;
+}
+
+.order-cancel-btn:hover:not(:disabled) {
+    color: #fff;
+    background: #e03131;
+}
+
+.order-card-error {
+    color: #e03131;
+}
+
+
+/* ---------- Status + total ---------- */
+
+.order-card-total-label {
+    margin: 10px 0 0 4px;
+    font-size: 0.85rem;
+    color: #8a8a8a;
+}
+
+.order-card-total {
+    margin: 0 0 0 4px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ff5a1f;
+}
+
+
+/* ---------- Button ---------- */
+
+.order-card-action {
+    padding-right: 14px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.order-card.open .order-card-action {
+    padding-top: 30px;
+}
+
+.order-details-btn {
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a13, #ff8a2e);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 6px 14px rgba(255, 106, 19, 0.25);
+    transition: filter 0.2s;
+}
+
+.order-details-btn:hover {
+    filter: brightness(1.08);
+}
+
+
+/* ---------- Laptop / tablet ---------- */
+
+@media (max-width: 1199px) {
+    .order-card {
+        grid-template-columns: 200px 1fr 180px;
+    }
+
+    /* Button moves under the status, on the right */
+    .order-card-action {
+        grid-column: 3;
+        padding: 0;
+        justify-content: flex-start;
+    }
+
+    .order-card.open .order-card-action {
+        padding-top: 0;
+    }
+}
+
+
+/* ---------- Phone: picture on top, everything stacked ---------- */
+
+@media (max-width: 767px) {
+    .order-card {
+        grid-template-columns: 1fr auto;
+        gap: 12px 16px;
+    }
+
+    .order-card-img {
+        grid-column: 1 / -1;
+        height: 150px;
+    }
+
+    .order-card-info {
+        grid-column: 1 / -1;
+    }
+
+    .order-card-side {
+        grid-column: 1;
+    }
+
+    .order-card-action {
+        grid-column: 2;
+        align-self: end;
+    }
+}

@@ -1,8 +1,12 @@
+from datetime import datetime
+
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.models.activity_log import AREA_USER
 from app.models.user import User, ROLE_CUSTOMER
 from app.schemas.auth import RegisterRequest, LoginRequest
+from app.services import activity_service
 from app.security.password import hash_password, verify_password
 from app.security.jwt import create_access_token
 
@@ -45,6 +49,9 @@ def register_user(db: Session, data: RegisterRequest) -> User:
     db.commit()
     db.refresh(new_user)
 
+    article = "an" if new_user.role[0] in "aeiou" else "a"
+    activity_service.log(db, new_user, AREA_USER, "register", f"created {article} {new_user.role} account")
+
     return new_user
 
 
@@ -66,6 +73,10 @@ def login_user(db: Session, data: LoginRequest) -> dict:
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Your account is deactivated. Please contact the admin."
         )
+
+    user.last_login_at = datetime.now()
+    db.commit()
+    activity_service.log(db, user, AREA_USER, "login", "logged in")
 
     access_token = create_access_token(user_id=user.id, role=user.role)
 

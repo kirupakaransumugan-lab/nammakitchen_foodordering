@@ -1,0 +1,102 @@
+/* =========================
+   Customer My Orders page
+   (hero + shared styles are in customer.css,
+    the card is in components/OrderCard.css)
+   ========================= */
+
+.orders-body {
+    position: relative;
+    padding-top: 20px;
+}
+
+.orders-container {
+    position: relative;
+    z-index: 1;
+}
+
+.orders-deco-left {
+    top: 60px;
+    left: -110px;
+    width: 250px;
+}
+
+.orders-deco-right {
+    top: 380px;
+    right: -60px;
+    width: 220px;
+}
+
+
+/* ---------- Status tabs ---------- */
+
+.orders-tabs {
+    margin-bottom: 20px;
+    padding-bottom: 4px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    overflow-x: auto;
+}
+
+.orders-tab {
+    flex-shrink: 0;
+    padding: 10px 26px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #1d1d1d;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(120, 72, 30, 0.07);
+    transition: background 0.2s, color 0.2s;
+}
+
+.orders-tab:hover {
+    background: #fff3e8;
+}
+
+.orders-tab.active {
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a13, #ff8a2e);
+    box-shadow: 0 6px 14px rgba(255, 106, 19, 0.3);
+}
+
+
+/* ---------- List ---------- */
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.orders-empty {
+    text-align: center;
+}
+
+.orders-empty-btn {
+    display: inline-block;
+    padding: 10px 32px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(90deg, #ff6a13, #ff9a2e);
+    border-radius: 50px;
+}
+
+.orders-empty-btn:hover {
+    color: #fff;
+    filter: brightness(1.08);
+}
+
+
+/* The tabs do not fit in one row: start from the left and scroll */
+@media (max-width: 1199px) {
+    .orders-tabs {
+        justify-content: flex-start;
+    }
+}

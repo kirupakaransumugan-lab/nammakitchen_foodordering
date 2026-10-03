@@ -1,0 +1,456 @@
+/* =========================
+   Owner pages: sidebar + top bar + hero
+   ========================= */
+
+.owner-shell {
+    --sidebar-width: 240px;
+    min-height: 100vh;
+    background: #fdf8f2;
+}
+
+
+/* ---------- Sidebar ---------- */
+
+.owner-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    width: var(--sidebar-width);
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background:
+        linear-gradient(rgba(14, 12, 10, 0.92), rgba(14, 12, 10, 0.75)),
+        url("../../assets/deco-tomato-left.png") left -60px bottom 40px / 260px auto no-repeat,
+        #0e0c0a;
+    transition: transform 0.25s;
+}
+
+.owner-logo {
+    width: 150px;
+    height: auto;
+    margin: 0 auto 22px;
+    display: block;
+}
+
+.owner-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.owner-nav-link {
+    width: 100%;
+    padding: 11px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
+    text-align: left;
+    text-decoration: none;
+    background: none;
+    border: none;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.owner-nav-link span {
+    flex: 1;
+}
+
+.owner-nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.owner-nav-link.active {
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a13, #ff8a2e);
+    box-shadow: 0 6px 16px rgba(255, 106, 19, 0.35);
+}
+
+.owner-nav-link.small {
+    padding: 9px 16px 9px 28px;
+    font-size: 0.92rem;
+}
+
+.owner-nav-link.disabled {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: default;
+}
+
+.owner-nav-link.disabled:hover {
+    background: none;
+}
+
+.owner-soon {
+    padding: 1px 8px;
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+}
+
+.owner-nav-arrow {
+    transition: transform 0.2s;
+}
+
+.owner-nav-arrow.open {
+    transform: rotate(180deg);
+}
+
+.owner-logout {
+    margin-top: 16px;
+}
+
+.owner-sidebar-backdrop {
+    display: none;
+}
+
+
+/* ---------- Main area ---------- */
+
+.owner-main {
+    position: relative;
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+    /* clip, not hidden, so nothing wider than the screen makes a side scroll */
+    overflow-x: clip;
+}
+
+/* Faint doodle behind the cards (same as the customer pages) */
+.owner-main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../../assets/doodle-bg.png") repeat;
+    background-size: 520px auto;
+    mix-blend-mode: multiply;
+    opacity: 0.06;
+    pointer-events: none;
+}
+
+.owner-hero {
+    position: relative;
+    padding: 14px 28px 74px;
+    color: #fff;
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 45%, rgba(0, 0, 0, 0.15) 75%),
+        url("../../assets/hero-bg.png") right 35% / cover no-repeat;
+}
+
+.owner-content {
+    position: relative;
+    margin-top: -56px;   /* the stat cards sit over the bottom of the hero */
+    padding: 0 28px 40px;
+}
+
+
+/* ---------- Top bar ---------- */
+
+.owner-topbar {
+    margin-bottom: 26px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.owner-icon-btn {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: none;
+    border: none;
+    border-radius: 50%;
+}
+
+.owner-icon-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Only needed when the sidebar is hidden (smaller screens) */
+.owner-burger {
+    display: none;
+}
+
+.owner-search {
+    width: 100%;
+    max-width: 380px;
+    height: 42px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+}
+
+.owner-search input {
+    flex: 1;
+    min-width: 0;
+    color: #fff;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.owner-search input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.owner-topbar-gap {
+    flex: 1;
+}
+
+.owner-bell-count {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: #e03131;
+    border-radius: 50px;
+}
+
+.owner-user {
+    padding: 4px 6px 4px 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 50px;
+}
+
+.owner-user:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.owner-avatar {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6a13, #ff9a2e);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+}
+
+.owner-user-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.owner-user-text small {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* ---------- Light version (Menu Management) ---------- */
+
+.owner-shell.light .owner-sidebar {
+    background: #fffaf4;
+    border-right: 1px solid #f2e6da;
+}
+
+.owner-shell.light .owner-nav-link {
+    color: #3a3a3a;
+}
+
+.owner-shell.light .owner-nav-link:hover {
+    color: #ff5a13;
+    background: #fff1e6;
+}
+
+.owner-shell.light .owner-nav-link.active {
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a13, #ff8a2e);
+}
+
+.owner-shell.light .owner-nav-link.disabled,
+.owner-shell.light .owner-nav-link.disabled:hover {
+    color: #b8aca1;
+    background: none;
+}
+
+.owner-shell.light .owner-soon {
+    color: #a99b8e;
+    border-color: #eadbcd;
+}
+
+/* Chef picture at the bottom of the sidebar, faded in at the top edge */
+.owner-sidebar-chef {
+    width: calc(100% + 28px);
+    height: 260px;
+    margin: 12px -14px -18px;
+    flex-shrink: 0;
+    object-fit: cover;
+    object-position: center 62%;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 30%);
+}
+
+.owner-shell.light .owner-hero {
+    padding-bottom: 26px;
+    color: #1d1d1d;
+    background:
+        linear-gradient(90deg, #fdf8f2 0%, #fdf8f2 30%, rgba(253, 248, 242, 0.6) 55%, rgba(253, 248, 242, 0) 75%),
+        url("../../assets/menu-hero-bg.png") right center / cover no-repeat,
+        #fdf8f2;
+}
+
+.owner-shell.light .owner-content {
+    margin-top: 0;
+}
+
+.owner-shell.light .owner-icon-btn {
+    color: #1d1d1d;
+}
+
+.owner-shell.light .owner-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.owner-shell.light .owner-search {
+    color: #8a8a8a;
+    background: #fff;
+    border-color: #f0e4d8;
+    box-shadow: 0 4px 14px rgba(120, 72, 30, 0.06);
+}
+
+.owner-shell.light .owner-search input {
+    color: #1d1d1d;
+}
+
+.owner-shell.light .owner-search input::placeholder {
+    color: #9a9a9a;
+}
+
+.owner-shell.light .owner-user {
+    color: #1d1d1d;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 14px rgba(120, 72, 30, 0.08);
+}
+
+.owner-shell.light .owner-user-text small {
+    color: #8a8a8a;
+}
+
+.owner-shell.light .owner-bell-count {
+    color: #fff;
+}
+
+
+/* Number of new orders next to "Orders" */
+.owner-nav-badge {
+    min-width: 26px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    background: #ff5a13;
+    border-radius: 8px;
+}
+
+.owner-nav-link.active .owner-nav-badge {
+    color: #ff5a13;
+    background: #fff;
+}
+
+/* Hand-written line in the hero, e.g. "Good Food Brings People Together" */
+.owner-hero-quote {
+    margin: 0;
+    justify-self: center;
+    font-family: "Caveat", cursive;
+    font-size: 2rem;
+    line-height: 1.05;
+    color: #8f2d14;
+    transform: rotate(-8deg);
+}
+
+@media (max-width: 991px) {
+    .owner-hero-quote {
+        display: none;
+    }
+}
+
+
+/* ---------- Laptop / tablet: sidebar slides in from the left ---------- */
+
+@media (max-width: 1199px) {
+    .owner-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar-open .owner-sidebar {
+        transform: none;
+    }
+
+    .sidebar-open .owner-sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 1020;
+        display: block;
+        background: rgba(0, 0, 0, 0.45);
+    }
+
+    .owner-main {
+        margin-left: 0;
+    }
+
+    .owner-burger {
+        display: flex;
+    }
+}
+
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 575px) {
+    .owner-hero {
+        padding: 10px 16px 70px;
+    }
+
+    .owner-content {
+        padding: 0 16px 30px;
+    }
+
+    .owner-topbar {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .owner-search {
+        order: 5;
+        max-width: none;
+    }
+
+    .owner-user-text {
+        display: none;
+    }
+}

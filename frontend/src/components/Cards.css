@@ -90,6 +90,17 @@
     object-fit: cover;
 }
 
+/* The picture is a button: clicking it opens the food popup */
+.food-card-img-btn {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 .food-like-btn {
     position: absolute;
     top: 10px;

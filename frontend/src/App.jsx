@@ -7,8 +7,16 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/customer/Home";
 import About from "./pages/customer/About";
+import Foods from "./pages/customer/Foods";
+import MyOrders from "./pages/customer/MyOrders";
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
+import MenuManagement from "./pages/owner/MenuManagement";
+import Customers from "./pages/owner/Customers";
+import OwnerOrders from "./pages/owner/OwnerOrders";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import Users from "./pages/admin/Users";
+import Reports from "./pages/admin/Reports";
+import UserReports from "./pages/admin/UserReports";
 
 import { getCurrentUser, getHomePathForRole } from "./services/authService";
 
@@ -50,6 +58,18 @@ function App() {
                     />
 
                     <Route
+                        path="/my-orders"
+                        element={
+                            <ProtectedRoute allowedRoles={["customer"]}>
+                                <MyOrders />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    {/* Anyone can look at the menu */}
+                    <Route path="/menu" element={<Foods />} />
+
+                    <Route
                         path="/about"
                         element={<About />}
                     />
@@ -64,12 +84,66 @@ function App() {
                         }
                     />
 
+                    <Route
+                        path="/owner/menu"
+                        element={
+                            <ProtectedRoute allowedRoles={["owner"]}>
+                                <MenuManagement />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/owner/customers"
+                        element={
+                            <ProtectedRoute allowedRoles={["owner"]}>
+                                <Customers />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/owner/orders"
+                        element={
+                            <ProtectedRoute allowedRoles={["owner"]}>
+                                <OwnerOrders />
+                            </ProtectedRoute>
+                        }
+                    />
+
                     {/* Admin only */}
                     <Route
                         path="/admin"
                         element={
                             <ProtectedRoute allowedRoles={["admin"]}>
                                 <AdminDashboard />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/users"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Users />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/reports/restaurant"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Reports />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/reports/users"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <UserReports />
                             </ProtectedRoute>
                         }
                     />

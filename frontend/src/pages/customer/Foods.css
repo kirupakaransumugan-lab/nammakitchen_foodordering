@@ -1,0 +1,298 @@
+/* =========================
+   Customer Menu page
+   (shared page styles are in customer.css,
+    food card styles are in components/Cards.css)
+   ========================= */
+
+
+/* ---------- Layout ---------- */
+
+.menu-body {
+    position: relative;
+    padding-top: 30px;
+}
+
+.menu-deco-right {
+    top: 0;
+    right: -60px;
+    width: 220px;
+}
+
+.menu-deco-left {
+    top: 520px;
+    left: -110px;
+    width: 250px;
+}
+
+.menu-layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+
+/* ---------- Category sidebar ---------- */
+
+.menu-sidebar {
+    position: sticky;
+    top: 100px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(120, 72, 30, 0.08);
+}
+
+.menu-cat {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 500;
+    color: #1d1d1d;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.menu-cat span {
+    flex: 1;
+}
+
+/* Small round picture of the category */
+.menu-cat-img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.menu-cat:hover {
+    background: #fff3e8;
+}
+
+.menu-cat.active {
+    color: #fff;
+    background: linear-gradient(90deg, #ff6a13, #ff8a2e);
+    box-shadow: 0 6px 14px rgba(255, 106, 19, 0.3);
+}
+
+/* The arrow only shows on the selected category */
+.menu-cat-arrow {
+    visibility: hidden;
+}
+
+.menu-cat.active .menu-cat-arrow {
+    visibility: visible;
+}
+
+
+/* ---------- Toolbar: search, sort, grid/list ---------- */
+
+.menu-toolbar {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.menu-search {
+    flex: 1;
+    padding: 0 16px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #8a8a8a;
+    background: #fff;
+    border: 1px solid #f0e4d8;
+    border-radius: 10px;
+}
+
+.menu-search input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.menu-search:focus-within {
+    border-color: #ff9a5c;
+}
+
+.menu-sort {
+    height: 46px;
+    padding: 0 12px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #f0e4d8;
+    border-radius: 10px;
+}
+
+.menu-sort select {
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.menu-view-btns {
+    display: flex;
+    gap: 6px;
+}
+
+.menu-view-btns button {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1d1d1d;
+    background: #fff;
+    border: 1px solid #f0e4d8;
+    border-radius: 10px;
+}
+
+.menu-view-btns button.active {
+    color: #fff;
+    background: #ff6a13;
+    border-color: #ff6a13;
+}
+
+.menu-count {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: #6c6c6c;
+}
+
+
+/* ---------- Food grid / list ---------- */
+
+/* customer.css gives .food-grid 4 columns; the list view changes it */
+.menu-grid.list-view {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.menu-grid.list-view .food-card {
+    flex-direction: row;
+}
+
+.menu-grid.list-view .food-card-img {
+    flex: 0 0 190px;
+    height: auto;
+    min-height: 150px;
+}
+
+
+/* ---------- Pagination ---------- */
+
+.menu-pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.menu-pagination button {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #1d1d1d;
+    background: #fff;
+    border: 1px solid #f0e4d8;
+    border-radius: 10px;
+}
+
+.menu-pagination button.active {
+    color: #fff;
+    background: #ff6a13;
+    border-color: #ff6a13;
+}
+
+.menu-pagination button:disabled {
+    opacity: 0.4;
+}
+
+
+/* ---------- Smaller laptops ---------- */
+
+@media (max-width: 1199px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .menu-grid.list-view {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ---------- Tablet: the sidebar becomes a row of chips on top ---------- */
+
+@media (max-width: 991px) {
+    .menu-layout {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .menu-sidebar {
+        position: static;
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .menu-cat {
+        flex-shrink: 0;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .menu-cat-arrow {
+        display: none;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 575px) {
+    .menu-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .menu-search {
+        flex-basis: 100%;
+    }
+
+    .menu-sort {
+        flex: 1;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-grid.list-view .food-card-img {
+        flex-basis: 120px;
+    }
+}
