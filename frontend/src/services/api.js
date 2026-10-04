@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+// Local dev sets VITE_API_BASE_URL (e.g. http://localhost:8000/api).
+// On Vercel the backend shares the frontend's domain, so "/api" is enough.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
 
 
 // One helper for every backend call.
