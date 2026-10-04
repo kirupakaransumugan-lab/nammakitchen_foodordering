@@ -7,10 +7,12 @@ export function registerUser(userData) {
 
 
 export async function loginUser(email, password) {
-    const data = await apiRequest("/auth/login", "POST", {
-        email: email,
-        password: password
-    });
+    // OAuth2 password flow: send a form, and the email goes in "username"
+    const form = new URLSearchParams();
+    form.append("username", email);
+    form.append("password", password);
+
+    const data = await apiRequest("/auth/login", "POST", form);
 
     // Save the token and user, so they stay after a page refresh
     localStorage.setItem("token", data.access_token);

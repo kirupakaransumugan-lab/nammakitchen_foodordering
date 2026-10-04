@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.models.activity_log import AREA_USER
 from app.models.user import User, ROLE_CUSTOMER
-from app.schemas.auth import RegisterRequest, LoginRequest
+from app.schemas.auth import RegisterRequest
 from app.services import activity_service
 from app.security.password import hash_password, verify_password
 from app.security.jwt import create_access_token
@@ -55,14 +55,14 @@ def register_user(db: Session, data: RegisterRequest) -> User:
     return new_user
 
 
-def login_user(db: Session, data: LoginRequest) -> dict:
-    email = data.email.lower().strip()
+def login_user(db: Session, email: str, password: str) -> dict:
+    email = email.lower().strip()
 
     user = db.query(User).filter(User.email == email).first()
 
     # Same message for "wrong email" and "wrong password",
     # so nobody can find out which emails are registered.
-    if user is None or not verify_password(data.password, user.password_hash):
+    if user is None or not verify_password(password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password."

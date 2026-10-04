@@ -4,9 +4,12 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // One helper for every backend call.
 // It adds the JSON header, adds the token if we have one,
 // and turns backend errors into a normal JavaScript Error.
+// If body is URLSearchParams it is sent as a form instead (used by login).
 export async function apiRequest(path, method = "GET", body = null) {
+    const isForm = body instanceof URLSearchParams;
+
     const headers = {
-        "Content-Type": "application/json"
+        "Content-Type": isForm ? "application/x-www-form-urlencoded" : "application/json"
     };
 
     const token = localStorage.getItem("token");
@@ -21,7 +24,7 @@ export async function apiRequest(path, method = "GET", body = null) {
     };
 
     if (body) {
-        options.body = JSON.stringify(body);
+        options.body = isForm ? body : JSON.stringify(body);
     }
 
     let response;

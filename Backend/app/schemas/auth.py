@@ -17,11 +17,6 @@ class RegisterRequest(BaseModel):
     role: Literal["customer", "owner", "admin"] = "customer"
 
 
-class LoginRequest(BaseModel):
-    email: EmailStr
-    password: str
-
-
 class LoginResponse(BaseModel):
     access_token: str
     token_type: str

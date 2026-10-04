@@ -1,5 +1,5 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError
 from sqlalchemy.orm import Session
 
@@ -9,12 +9,13 @@ from app.security.jwt import decode_access_token
 
 
 # Reads the "Authorization: Bearer <token>" header.
-# It also adds the "Authorize" button in Swagger /docs.
-bearer_scheme = HTTPBearer()
+# tokenUrl makes the Swagger /docs "Authorize" button show a
+# username/password form that calls our login endpoint.
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 
 def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
+    token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
 ):
     token_error = HTTPException(
@@ -24,7 +25,7 @@ def get_current_user(
     )
 
     try:
-        payload = decode_access_token(credentials.credentials)
+        payload = decode_access_token(token)
         user_id = payload.get("sub")
     except JWTError:
         raise token_error
