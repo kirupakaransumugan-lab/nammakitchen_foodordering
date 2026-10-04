@@ -10,7 +10,7 @@ from app.database import Base, engine, get_db
 # Import every model here, so create_all knows which tables to make.
 from app import models  # noqa: F401
 
-from app.routers import admin, auth, categories, foods, orders, owner
+from app.routers import admin, auth, categories, foods, images, orders, owner, restaurant
 from app.services.upload_service import UPLOAD_DIR
 
 
@@ -71,9 +71,12 @@ app.include_router(foods.router, prefix="/api")
 app.include_router(orders.router, prefix="/api")
 app.include_router(owner.router, prefix="/api")
 app.include_router(admin.router, prefix="/api")
+app.include_router(images.router, prefix="/api")
+app.include_router(restaurant.router, prefix="/api")
 
 
-# Uploaded photos: UPLOAD_DIR/foods/abc.jpg -> http://.../uploads/foods/abc.jpg
+# Old photos saved on disk: UPLOAD_DIR/foods/abc.jpg -> http://.../uploads/foods/abc.jpg
+# (new photos live in the database, see routers/images.py)
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 

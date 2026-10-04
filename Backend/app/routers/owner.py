@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Literal
 
-from fastapi import APIRouter, Depends, File, Query, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Query, UploadFile
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -10,9 +10,20 @@ from app.models.user import User
 from app.schemas.customer import CustomerDetail, CustomerListResponse, CustomerSummary
 from app.schemas.dashboard import CategoryWithCount, DashboardResponse, OrderStatusUpdate
 from app.schemas.food import FoodListResponse
+from app.schemas.admin import RestaurantReport
 from app.schemas.order import OrderResponse, OwnerOrderDetail, OwnerOrderList
+from app.schemas.restaurant import OrderingUpdate, RestaurantResponse, RestaurantUpdate
 from app.security.auth import require_owner
-from app.services import activity_service, customer_service, dashboard_service, food_service, order_service, upload_service
+from app.services import (
+    activity_service,
+    admin_service,
+    customer_service,
+    dashboard_service,
+    food_service,
+    order_service,
+    restaurant_service,
+    upload_service
+)
 
 
 # Everything here is for the restaurant owner only
@@ -110,11 +121,11 @@ def all_foods(
 
 
 # Food / category photo from the owner's computer.
-# Returns {"url": "http://.../uploads/foods/abc.jpg"} to save in "image".
+# Returns {"url": "/api/images/5"} to save in "image".
 @router.post("/uploads/image")
-async def upload_image(request: Request, file: UploadFile = File(...)):
-    path = await upload_service.save_image(file)
-    return {"url": str(request.base_url) + path}
+async def upload_image(file: UploadFile = File(...), db: Session = Depends(get_db)):
+    url = await upload_service.save_image(db, file)
+    return {"url": url}
 
 
 # ---------- Customers ----------
@@ -156,3 +167,33 @@ def customer_detail(
     db: Session = Depends(get_db)
 ):
     return customer_service.get_customer_detail(db, customer_id, orders_limit)
+
+
+# ---------- Reports ----------
+
+# Example: /api/owner/reports?start=2025-10-01&end=2025-10-31
+# Without dates: from the 1st of this month until today.
+@router.get("/reports", response_model=RestaurantReport)
+def reports(start: date | None = None, end: date | None = None, db: Session = Depends(get_db)):
+    today = date.today()
+    return admin_service.get_restaurant_report(db, start or today.replace(day=1), end or today)
+
+
+# ---------- Restaurant profile + ordering switch ----------
+
+@router.put("/restaurant", response_model=RestaurantResponse)
+def update_restaurant(
+    data: RestaurantUpdate,
+    owner: User = Depends(require_owner),
+    db: Session = Depends(get_db)
+):
+    return restaurant_service.update_restaurant(db, owner, data)
+
+
+@router.patch("/restaurant/ordering", response_model=RestaurantResponse)
+def set_ordering(
+    data: OrderingUpdate,
+    owner: User = Depends(require_owner),
+    db: Session = Depends(get_db)
+):
+    return restaurant_service.set_accepting_orders(db, owner, data.is_accepting_orders)

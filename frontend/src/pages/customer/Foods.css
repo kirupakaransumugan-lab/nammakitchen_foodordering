@@ -99,12 +99,13 @@
 .menu-toolbar {
     margin-bottom: 18px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 14px;
 }
 
 .menu-search {
-    flex: 1;
+    flex: 1 1 240px;
     padding: 0 16px;
     height: 46px;
     display: flex;
@@ -136,6 +137,7 @@
     align-items: center;
     gap: 6px;
     font-weight: 500;
+    white-space: nowrap;
     background: #fff;
     border: 1px solid #f0e4d8;
     border-radius: 10px;
@@ -181,7 +183,13 @@
 
 /* ---------- Food grid / list ---------- */
 
-/* customer.css gives .food-grid 4 columns; the list view changes it */
+/* As many columns as fit, each at least 210px wide.
+   Counted from the space next to the sidebar, not the whole window,
+   so cards never get squeezed when the sidebar takes room. */
+.menu-grid {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+
 .menu-grid.list-view {
     grid-template-columns: repeat(2, 1fr);
 }
@@ -233,10 +241,6 @@
 /* ---------- Smaller laptops ---------- */
 
 @media (max-width: 1199px) {
-    .menu-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
     .menu-grid.list-view {
         grid-template-columns: 1fr;
     }
@@ -266,10 +270,6 @@
     .menu-cat-arrow {
         display: none;
     }
-
-    .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 
@@ -286,10 +286,6 @@
 
     .menu-sort {
         flex: 1;
-    }
-
-    .menu-grid {
-        grid-template-columns: 1fr;
     }
 
     .menu-grid.list-view .food-card-img {

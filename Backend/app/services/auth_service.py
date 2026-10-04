@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.models.activity_log import AREA_USER
 from app.models.user import User, ROLE_CUSTOMER
-from app.schemas.auth import RegisterRequest
+from app.schemas.auth import AccountUpdate, PasswordChange, RegisterRequest
 from app.services import activity_service
 from app.security.password import hash_password, verify_password
 from app.security.jwt import create_access_token
@@ -85,3 +85,34 @@ def login_user(db: Session, email: str, password: str) -> dict:
         "token_type": "bearer",
         "user": user
     }
+
+
+def update_account(db: Session, user: User, data: AccountUpdate) -> User:
+    user.name = data.name.strip()
+    user.phone = data.phone.strip()
+    user.address = (data.address or "").strip() or None
+
+    db.commit()
+    db.refresh(user)
+
+    activity_service.log(db, user, AREA_USER, "update_account", "updated their account details")
+    return user
+
+
+def change_password(db: Session, user: User, data: PasswordChange):
+    if not verify_password(data.current_password, user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Your current password is not correct."
+        )
+
+    if data.new_password == data.current_password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="The new password must be different from the current one."
+        )
+
+    user.password_hash = hash_password(data.new_password)
+    db.commit()
+
+    activity_service.log(db, user, AREA_USER, "change_password", "changed their password")

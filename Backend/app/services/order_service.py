@@ -14,7 +14,7 @@ from app.models.order_item import OrderItem
 from app.models.order_item_option import OrderItemOption
 from app.models.user import User
 from app.schemas.order import OrderCreate
-from app.services import activity_service
+from app.services import activity_service, restaurant_service
 
 
 # Loads each order's items and their foods in 2 extra queries,
@@ -59,6 +59,9 @@ def check_options(food: Food, option_ids: list[int]) -> list[tuple[FoodOptionGro
 
 
 def place_order(db: Session, customer: User, data: OrderCreate) -> Order:
+    # The owner can pause online ordering in Settings
+    restaurant_service.check_accepting_orders(db)
+
     # Same food + same options + same note twice in the cart
     # -> one line with both quantities
     lines: dict[tuple, int] = {}

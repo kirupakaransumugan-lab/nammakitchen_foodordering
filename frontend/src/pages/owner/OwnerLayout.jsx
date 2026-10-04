@@ -30,9 +30,9 @@ const OWNER_MENU = [
     { label: "Menu Management", icon: UtensilsCrossed, to: "/owner/menu" },
     { label: "Orders", icon: ClipboardList, to: "/owner/orders", badge: true },
     { label: "Customers", icon: Users, to: "/owner/customers" },
-    { label: "Reports", icon: ChartColumn, soon: true },
-    { label: "Restaurant Profile", icon: Store, soon: true },
-    { label: "Settings", icon: Settings, soon: true }
+    { label: "Reports", icon: ChartColumn, to: "/owner/reports" },
+    { label: "Restaurant Profile", icon: Store, to: "/owner/profile" },
+    { label: "Settings", icon: Settings, to: "/owner/settings" }
 ];
 
 

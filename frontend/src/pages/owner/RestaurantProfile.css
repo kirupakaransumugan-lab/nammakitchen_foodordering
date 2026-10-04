@@ -1,0 +1,276 @@
+/* =========================
+   Owner: Restaurant Profile
+   ========================= */
+
+/* Form | customer preview */
+.rp-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+    gap: 20px;
+}
+
+.rp-form .req {
+    color: #ff5a13;
+}
+
+.rp-section {
+    margin: 10px 0 12px;
+    padding-top: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1d1d1d;
+    border-top: 1px solid #f2ebe4;
+}
+
+.rp-hint {
+    margin: -6px 0 14px;
+}
+
+
+/* ---------- Logo + cover boxes ---------- */
+
+.rp-photos {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 16px;
+}
+
+.rp-upload {
+    min-height: 150px;
+    margin-bottom: 0;
+}
+
+.rp-upload.has-image {
+    height: 150px;
+}
+
+/* Logo: a circle */
+.rp-upload.round {
+    width: 150px;
+    height: 150px;
+    min-height: 0;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.rp-upload.round small {
+    display: none;
+}
+
+.rp-upload.round .food-upload-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.rp-upload.round.has-image {
+    padding: 0;
+}
+
+.rp-upload.round .food-upload-actions {
+    top: auto;
+    right: 50%;
+    bottom: 8px;
+    transform: translateX(50%);
+}
+
+
+/* ---------- Save ---------- */
+
+.rp-saved {
+    margin: 0 0 12px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #23824a;
+    background: #e6f6ec;
+    border-radius: 10px;
+}
+
+.rp-actions {
+    padding-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #f2ebe4;
+}
+
+.rp-actions .nk-btn {
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+}
+
+
+/* ---------- Customer preview ---------- */
+
+.rp-side {
+    position: sticky;
+    top: 20px;
+}
+
+.rp-side-label {
+    margin: 0 0 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+}
+
+.rp-preview {
+    overflow: hidden;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(120, 72, 30, 0.1);
+}
+
+.rp-cover {
+    position: relative;
+    height: 150px;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.35)),
+        url("../../assets/hero-bg.png") center / cover no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.rp-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 50px;
+}
+
+.rp-status.open { color: #23824a; background: #e6f6ec; }
+.rp-status.closed { color: #c92a2a; background: #fdecec; }
+.rp-status.unknown { color: #6a6a6a; background: #f3f0ec; }
+
+.rp-preview-body {
+    padding: 0 20px 20px;
+    text-align: center;
+}
+
+.rp-logo {
+    width: 84px;
+    height: 84px;
+    margin: -42px auto 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #ff6a13;
+    background: #fff7f0;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.rp-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rp-preview-body h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #1d1d1d;
+    overflow-wrap: anywhere;
+}
+
+.rp-tagline {
+    margin: 2px 0 0;
+    font-family: "Caveat", cursive;
+    font-size: 1.3rem;
+    color: #ff5a13;
+}
+
+.rp-about {
+    margin: 10px 0 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #5a5a5a;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.rp-contact {
+    margin: 16px 0 0;
+    padding: 14px 0 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    border-top: 1px solid #f2ebe4;
+}
+
+.rp-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: #3a3a3a;
+    overflow-wrap: anywhere;
+}
+
+.rp-contact svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #ff6a13;
+}
+
+.rp-side-note {
+    margin: 12px 4px 0;
+    font-size: 0.85rem;
+    color: #7a7a7a;
+}
+
+.rp-side-note a {
+    font-weight: 600;
+    color: #ff5a13;
+}
+
+
+/* ---------- Smaller screens: preview goes above the form ---------- */
+
+@media (max-width: 1199px) {
+    .rp-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .rp-side {
+        position: static;
+        order: -1;
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 575px) {
+    .rp-photos {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .rp-photos > .nk-field {
+        width: 100%;
+    }
+
+    .rp-photos > .nk-field:first-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rp-actions .nk-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

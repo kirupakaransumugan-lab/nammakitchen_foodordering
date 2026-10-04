@@ -152,3 +152,22 @@
     gap: 8px;
     border-radius: 12px;
 }
+
+
+/* ---------- Category form: smaller photo box ---------- */
+
+.cat-upload {
+    min-height: 140px;
+    margin-bottom: 0;
+}
+
+.cat-upload.has-image {
+    height: 160px;
+}
+
+.cat-link-error {
+    margin-top: 4px;
+    display: block;
+    font-size: 0.78rem;
+    color: #e03131;
+}

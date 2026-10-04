@@ -121,10 +121,12 @@
     color: #ff4d4d;
 }
 
+/* Price and "Add" side by side; on a narrow card "Add" drops below the price */
 .food-card-body {
     flex: 1;
     padding: 14px 16px 16px;
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
     gap: 12px;
@@ -154,6 +156,7 @@
 
 .food-card-price {
     margin: 0;
+    white-space: nowrap;
     font-size: 1.15rem;
     font-weight: 700;
     color: #ff5a1f;

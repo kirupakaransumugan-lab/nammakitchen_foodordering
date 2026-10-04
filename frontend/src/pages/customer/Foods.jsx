@@ -36,10 +36,12 @@ const SORT_OPTIONS = [
 ];
 
 // Sidebar icon: the image the owner gave the category,
-// or a plain plate icon until an image is added.
+// or a plain plate icon when there is none or it cannot load.
 function CategoryIcon({ category }) {
-    if (category.image) {
-        return <img src={category.image} alt="" className="menu-cat-img" />;
+    const [broken, setBroken] = useState(false);
+
+    if (category.image && !broken) {
+        return <img src={category.image} alt="" className="menu-cat-img" onError={() => setBroken(true)} />;
     }
 
     return <UtensilsCrossed size={22} strokeWidth={1.6} />;

@@ -22,6 +22,25 @@ export async function loginUser(email, password) {
 }
 
 
+// name, phone, address of the logged-in user (email and role stay the same)
+export async function updateMyAccount(data) {
+    const user = await apiRequest("/auth/me", "PUT", data);
+
+    // Keep the saved copy in step, so the top bar shows the new name
+    localStorage.setItem("user", JSON.stringify(user));
+
+    return user;
+}
+
+
+export function changePassword(currentPassword, newPassword) {
+    return apiRequest("/auth/me/password", "PUT", {
+        current_password: currentPassword,
+        new_password: newPassword
+    });
+}
+
+
 export function logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");

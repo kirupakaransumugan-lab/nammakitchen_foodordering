@@ -197,11 +197,21 @@
     color: #8a8a8a;
 }
 
-.menu-category-menu {
+/* ⋮ button inside the card, on the right, centred top to bottom.
+   Two classes, so it beats Bootstrap's ".dropdown { position: relative }".
+   No transform here: it would trap the open menu under the next card. */
+.menu-category-row .menu-category-menu {
     position: absolute;
-    top: 50%;
+    top: 0;
+    bottom: 0;
     right: 6px;
-    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
+/* The row with the open menu sits above the rows after it */
+.menu-category-row:has(.dropdown-menu.show) {
+    z-index: 5;
 }
 
 

@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models.user import User
-from app.schemas.auth import RegisterRequest, LoginResponse
+from app.schemas.auth import AccountUpdate, LoginResponse, PasswordChange, RegisterRequest
 from app.schemas.user import UserResponse
 from app.security.auth import get_current_user
 from app.services import auth_service
@@ -38,3 +38,22 @@ def login(
 @router.get("/me", response_model=UserResponse)
 def get_me(current_user: User = Depends(get_current_user)):
     return current_user
+
+
+# Any logged-in user: change name, phone and address
+@router.put("/me", response_model=UserResponse)
+def update_me(
+    data: AccountUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    return auth_service.update_account(db, current_user, data)
+
+
+@router.put("/me/password", status_code=status.HTTP_204_NO_CONTENT)
+def change_my_password(
+    data: PasswordChange,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    auth_service.change_password(db, current_user, data)

@@ -13,6 +13,9 @@ import OwnerDashboard from "./pages/owner/OwnerDashboard";
 import MenuManagement from "./pages/owner/MenuManagement";
 import Customers from "./pages/owner/Customers";
 import OwnerOrders from "./pages/owner/OwnerOrders";
+import OwnerReports from "./pages/owner/OwnerReports";
+import RestaurantProfile from "./pages/owner/RestaurantProfile";
+import OwnerSettings from "./pages/owner/OwnerSettings";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Users from "./pages/admin/Users";
 import Reports from "./pages/admin/Reports";
@@ -107,6 +110,33 @@ function App() {
                         element={
                             <ProtectedRoute allowedRoles={["owner"]}>
                                 <OwnerOrders />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/owner/reports"
+                        element={
+                            <ProtectedRoute allowedRoles={["owner"]}>
+                                <OwnerReports />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/owner/profile"
+                        element={
+                            <ProtectedRoute allowedRoles={["owner"]}>
+                                <RestaurantProfile />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/owner/settings"
+                        element={
+                            <ProtectedRoute allowedRoles={["owner"]}>
+                                <OwnerSettings />
                             </ProtectedRoute>
                         }
                     />

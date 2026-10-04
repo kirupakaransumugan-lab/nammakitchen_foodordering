@@ -21,3 +21,15 @@ class LoginResponse(BaseModel):
     access_token: str
     token_type: str
     user: UserResponse
+
+
+# The logged-in user changing their own details (email and role stay the same)
+class AccountUpdate(BaseModel):
+    name: str = Field(min_length=2, max_length=100)
+    phone: str = Field(min_length=7, max_length=20)
+    address: str | None = Field(default=None, max_length=255)
+
+
+class PasswordChange(BaseModel):
+    current_password: str
+    new_password: str = Field(min_length=6, max_length=100)

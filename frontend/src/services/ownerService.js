@@ -112,3 +112,28 @@ export function getOwnerOrders(filters = {}) {
 export function getOwnerOrderDetail(orderId) {
     return apiRequest(`/owner/orders/${orderId}`);
 }
+
+
+// ---------- Reports ----------
+
+// start / end: "2025-10-01" (both days included)
+export function getOwnerReport(start, end) {
+    return apiRequest(`/owner/reports?start=${start}&end=${end}`);
+}
+
+
+// ---------- Restaurant profile ----------
+
+// Public details: name, contact, hours, "taking orders?"
+export function getRestaurant() {
+    return apiRequest("/restaurant");
+}
+
+export function updateRestaurant(data) {
+    return apiRequest("/owner/restaurant", "PUT", data);
+}
+
+// false = customers can look at the menu but cannot order
+export function setAcceptingOrders(isAccepting) {
+    return apiRequest("/owner/restaurant/ordering", "PATCH", { is_accepting_orders: isAccepting });
+}

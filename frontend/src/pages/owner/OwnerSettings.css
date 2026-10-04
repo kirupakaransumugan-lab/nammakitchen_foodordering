@@ -1,0 +1,201 @@
+/* =========================
+   Owner: Settings
+   ========================= */
+
+.set-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+}
+
+.set-column {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.set-hint {
+    margin-top: 4px;
+    display: block;
+    font-size: 0.75rem;
+    color: #9a9a9a;
+}
+
+.set-hint-gap {
+    margin: -6px 0 14px;
+}
+
+.set-success {
+    margin: 0 0 12px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #23824a;
+    background: #e6f6ec;
+    border-radius: 10px;
+}
+
+.set-actions {
+    padding-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #f2ebe4;
+}
+
+.set-actions .nk-btn {
+    padding: 11px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+}
+
+.set-panel .nk-field input:disabled {
+    color: #7a7a7a;
+    background: #f7f4f1;
+    cursor: not-allowed;
+}
+
+
+/* ---------- Online ordering ---------- */
+
+.set-ordering {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-radius: 14px;
+    transition: background 0.2s;
+}
+
+.set-ordering.on { background: #e9f7ef; }
+.set-ordering.off { background: #fdeeee; }
+
+.set-ordering-dot {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.set-ordering.on .set-ordering-dot {
+    background: #2e9d5b;
+    box-shadow: 0 0 0 5px rgba(46, 157, 91, 0.18);
+}
+
+.set-ordering.off .set-ordering-dot {
+    background: #e03131;
+    box-shadow: 0 0 0 5px rgba(224, 49, 49, 0.15);
+}
+
+.set-ordering > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.set-ordering strong {
+    display: block;
+    font-size: 1.05rem;
+    color: #1d1d1d;
+}
+
+.set-ordering small {
+    font-size: 0.85rem;
+    color: #5a5a5a;
+}
+
+.set-switch .form-check-input {
+    width: 3.2em;
+    height: 1.7em;
+}
+
+.set-switch .form-check-input:checked {
+    background-color: #2e9d5b;
+    border-color: #2e9d5b;
+}
+
+.set-note {
+    margin: 12px 0 0;
+    font-size: 0.85rem;
+    color: #7a7a7a;
+}
+
+
+/* ---------- Account ---------- */
+
+.set-profile {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid #f2ebe4;
+}
+
+.set-avatar {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6a13, #ff9a2e);
+    border-radius: 50%;
+}
+
+.set-profile > div {
+    min-width: 0;
+}
+
+.set-profile strong {
+    display: block;
+    font-size: 1.1rem;
+    color: #1d1d1d;
+}
+
+.set-profile small {
+    display: block;
+    font-size: 0.85rem;
+    color: #7a7a7a;
+    overflow-wrap: anywhere;
+}
+
+
+/* ---------- Password ---------- */
+
+.set-show {
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #5a5a5a;
+    background: #fff;
+    border: 1px solid #ece4dc;
+    border-radius: 50px;
+}
+
+.set-show:hover {
+    color: #ff5a13;
+    border-color: #ff9a5c;
+}
+
+
+@media (max-width: 991px) {
+    .set-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 575px) {
+    .set-actions .nk-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

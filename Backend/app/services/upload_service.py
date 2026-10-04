@@ -1,17 +1,25 @@
 import os
-import uuid
 from pathlib import Path
 
 from fastapi import HTTPException, UploadFile, status
+from sqlalchemy.orm import Session
+
+from app.models.uploaded_image import UploadedImage
 
 
-# Writable folder for photos (main.py shares this folder at /uploads).
-# Vercel only allows writing to /tmp; set UPLOAD_DIR to change it.
-UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", "/tmp/uploads"))
+# Old photo folder from before photos were kept in the database.
+# main.py still shares it at /uploads so old links keep working locally,
+# and migrate_uploads.py copies these files into the database.
+# Local: Backend/uploads. Vercel (sets VERCEL=1) only allows writing to /tmp.
+# Set UPLOAD_DIR to choose another folder.
+LOCAL_UPLOAD_DIR = Path(__file__).resolve().parent.parent.parent / "uploads"
+DEFAULT_UPLOAD_DIR = "/tmp/uploads" if os.getenv("VERCEL") else LOCAL_UPLOAD_DIR
+
+UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", DEFAULT_UPLOAD_DIR))
 
 MAX_SIZE = 2 * 1024 * 1024   # 2 MB
 
-# Allowed photo types -> file ending we save with
+# Allowed photo types (and the file ending each one uses)
 IMAGE_TYPES = {
     "image/jpeg": ".jpg",
     "image/png": ".png",
@@ -19,11 +27,10 @@ IMAGE_TYPES = {
 }
 
 
-# Saves the photo with a new random name and returns "uploads/foods/<name>"
-async def save_image(file: UploadFile, folder: str = "foods") -> str:
-    ending = IMAGE_TYPES.get(file.content_type)
-
-    if ending is None:
+# Saves the photo in the database and returns its address, "/api/images/<id>".
+# The address has no host, so it works on localhost and on Vercel alike.
+async def save_image(db: Session, file: UploadFile) -> str:
+    if file.content_type not in IMAGE_TYPES:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Please choose a JPG, PNG or WEBP image."
@@ -38,11 +45,21 @@ async def save_image(file: UploadFile, folder: str = "foods") -> str:
             detail="The image must be 2 MB or smaller."
         )
 
-    # A random name, so two photos called "biryani.jpg" never overwrite each other
-    name = uuid.uuid4().hex + ending
+    image = UploadedImage(content_type=file.content_type, data=content)
+    db.add(image)
+    db.commit()
+    db.refresh(image)
 
-    target_dir = UPLOAD_DIR / folder
-    target_dir.mkdir(parents=True, exist_ok=True)
-    (target_dir / name).write_bytes(content)
+    return f"/api/images/{image.id}"
 
-    return f"uploads/{folder}/{name}"
+
+def get_image(db: Session, image_id: int) -> UploadedImage:
+    image = db.get(UploadedImage, image_id)
+
+    if image is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Image not found."
+        )
+
+    return image
