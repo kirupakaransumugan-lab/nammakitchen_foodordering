@@ -1,11 +1,13 @@
+import os
 import uuid
 from pathlib import Path
 
 from fastapi import HTTPException, UploadFile, status
 
 
-# Backend/uploads  (main.py shares this folder at /uploads)
-UPLOAD_DIR = Path(__file__).resolve().parent.parent.parent / "uploads"
+# Writable folder for photos (main.py shares this folder at /uploads).
+# Vercel only allows writing to /tmp; set UPLOAD_DIR to change it.
+UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", "/tmp/uploads"))
 
 MAX_SIZE = 2 * 1024 * 1024   # 2 MB
 

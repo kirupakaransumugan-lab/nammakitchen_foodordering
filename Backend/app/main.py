@@ -73,8 +73,8 @@ app.include_router(owner.router, prefix="/api")
 app.include_router(admin.router, prefix="/api")
 
 
-# Uploaded photos: Backend/uploads/foods/abc.jpg -> http://.../uploads/foods/abc.jpg
-UPLOAD_DIR.mkdir(exist_ok=True)
+# Uploaded photos: UPLOAD_DIR/foods/abc.jpg -> http://.../uploads/foods/abc.jpg
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 
